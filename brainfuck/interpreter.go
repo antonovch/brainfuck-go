@@ -1,5 +1,12 @@
 package brainfuck
 
+/*
+	Interpret(code string) interprets brainfuck code string and prints
+	the output to the console through brainfuck's '.' directive.
+	The function does two things:
+		1/ transforms the code string into a slice of commands;
+		2/ runs the commands in order.
+*/
 func Interpret(code string) {
 	commands := compile(code)
 	exec(commands, newBuffer())
@@ -14,6 +21,12 @@ type commandStorage struct {
 	loop [][]command
 }
 
+/*
+	add adds new command to commandStorage. If loop slice of slices is not
+	empty (nested loops), appends the command to the last cell, otherwise
+	cmd command is appended directly to cmds. loop's subslices are
+	moved to type loop structure and finally appended to cmds elsewhere.
+*/
 func (c *commandStorage) add(cmd command) {
 	depth := len(c.loop) - 1
 	if depth >= 0 {
@@ -23,6 +36,10 @@ func (c *commandStorage) add(cmd command) {
 	}
 }
 
+/*
+	compile transforms the code string into a slice of commands.
+*/
+
 func compile(code string) []command {
 	var storage = &commandStorage{}
 	for _, char := range code {
@@ -31,11 +48,20 @@ func compile(code string) []command {
 	return storage.cmds
 }
 
+/*
+	exec executes a given slice of commands in sequence.
+*/
+
 func exec(cmds []command, b *buffer) {
 	for _, cmd := range cmds {
 		cmd.execute(b)
 	}
 }
+
+/*
+	addCommand adds new commands to commandStorage with
+	the proper logic.
+*/
 
 func addCommand(char rune, c *commandStorage) {
 	switch char {
