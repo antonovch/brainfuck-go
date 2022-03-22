@@ -10,20 +10,29 @@ type command interface {
 }
 
 type commandStorage struct {
-	cmds []command
-	loop [][]command
+	cmds []multi
+	loop [][]multi
 }
 
 func (c *commandStorage) add(cmd command) {
 	depth := len(c.loop) - 1
 	if depth >= 0 {
-		c.loop[depth] = append(c.loop[depth], cmd)
+		c.loop[depth] = multiAppend(c.loop[depth], cmd)
 	} else {
-		c.cmds = append(c.cmds, cmd)
+		c.cmds = multiAppend(c.cmds, cmd)
 	}
 }
 
-func compile(code string) []command {
+func multiAppend(cmds []multi, c command) []multi {
+	if len(cmds) > 0 && cmds[len(cmds)-1].cmd == c {
+		cmds[len(cmds)-1].count++
+	} else {
+		cmds = append(cmds, newMulti(c))
+	}
+	return cmds
+}
+
+func compile(code string) []multi {
 	var storage = &commandStorage{}
 	for _, char := range code {
 		addCommand(char, storage)
@@ -31,7 +40,7 @@ func compile(code string) []command {
 	return storage.cmds
 }
 
-func exec(cmds []command, b *buffer) {
+func exec(cmds []multi, b *buffer) {
 	for _, cmd := range cmds {
 		cmd.execute(b)
 	}
@@ -50,7 +59,7 @@ func addCommand(char rune, c *commandStorage) {
 	case '.':
 		c.add(output{})
 	case '[':
-		c.loop = append(c.loop, []command{})
+		c.loop = append(c.loop, []multi{})
 	case ']':
 		cmd := loop{c.loop[len(c.loop)-1]}
 		c.loop = c.loop[:len(c.loop)-1]

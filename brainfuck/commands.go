@@ -36,7 +36,7 @@ func (output) execute(b *buffer) {
 }
 
 type loop struct {
-	cmds []command
+	cmds []multi
 }
 
 func (l loop) execute(b *buffer) {
@@ -45,4 +45,19 @@ func (l loop) execute(b *buffer) {
 			c.execute(b)
 		}
 	}
+}
+
+type multi struct {
+	cmd   command
+	count int
+}
+
+func (m multi) execute(b *buffer) {
+	for ; m.count > 0; m.count-- {
+		m.cmd.execute(b)
+	}
+}
+
+func newMulti(cmd command) multi {
+	return multi{cmd, 1}
 }

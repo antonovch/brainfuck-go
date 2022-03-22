@@ -7,7 +7,7 @@ import (
 
 func TestLoop_execute(t *testing.T) {
 	type fields struct {
-		cmds []command
+		cmds []multi
 	}
 	type args struct {
 		buffer *buffer
@@ -20,14 +20,14 @@ func TestLoop_execute(t *testing.T) {
 	}{
 		{
 			"skips executing commands if buffer current cell value is zero",
-			fields{[]command{forward{}, increment{}}},
+			fields{[]multi{newMulti(forward{}), newMulti(increment{})}},
 			args{buffer: newBuffer()},
 			*newBuffer(),
 		},
 		{
 			"executes all commands if buffer current cell value is non-zero",
-			fields{[]command{
-				forward{}, increment{}, increment{}, backward{}, decrement{},
+			fields{[]multi{
+				newMulti(forward{}), newMulti(increment{}), newMulti(increment{}), newMulti(backward{}), newMulti(decrement{}),
 			}},
 			args{buffer: &buffer{[]byte{1}, 0}},
 			buffer{[]byte{0, 2}, 0},
