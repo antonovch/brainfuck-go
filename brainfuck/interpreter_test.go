@@ -11,6 +11,7 @@ func TestInterpret(t *testing.T) {
 		args args
 	}{
 		{"hello world", args{"++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."}},
+		{"print @ [space] @ [new line]", args{"++++++>+<[>{<-]>.}.{.}}}}+{."}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
