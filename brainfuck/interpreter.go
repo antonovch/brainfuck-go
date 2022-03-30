@@ -75,6 +75,10 @@ func addCommand(char rune, c *commandStorage) {
 		c.add(decrement{})
 	case '.':
 		c.add(output{})
+	case '{':
+		c.add(leftshift{})
+	case '}':
+		c.add(rightshift{})
 	case '[':
 		c.loop = append(c.loop, []command{})
 	case ']':

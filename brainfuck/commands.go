@@ -66,3 +66,21 @@ func (l loop) execute(b *buffer) {
 		}
 	}
 }
+
+/*
+	Left shift current buffer value's bits for one step ('{' operator).
+*/
+type leftshift struct{}
+
+func (leftshift) execute(b *buffer) {
+	b.cells[b.ptr] <<= 1
+}
+
+/*
+	Right shift current buffer value's bits for one step ('}' operator).
+*/
+type rightshift struct{}
+
+func (rightshift) execute(b *buffer) {
+	b.cells[b.ptr] >>= 1
+}
