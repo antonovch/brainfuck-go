@@ -32,6 +32,14 @@ func TestLoop_execute(t *testing.T) {
 			args{buffer: &buffer{[]byte{1}, 0}},
 			buffer{[]byte{0, 2}, 0},
 		},
+		{
+			"executes bit shift commands",
+			fields{[]command{
+				leftshift{}, leftshift{}, forward{}, rightshift{},
+			}},
+			args{buffer: &buffer{[]byte{1, 1}, 0}},
+			buffer{[]byte{4, 0}, 1},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
