@@ -3,7 +3,7 @@ package brainfuck
 import "fmt"
 
 /*
-	Move memory's pointer one step forward ('>' operator).
+	forward defines an execute method that moves memory's pointer one step forward ('>' operator).
 */
 type forward struct{}
 
@@ -16,7 +16,7 @@ func (forward) execute(m *memory) {
 }
 
 /*
-	Move memory's pointer one step backward ('<' operator).
+	backward defines an execute method that moves memory's pointer one step backward ('<' operator).
 */
 type backward struct{}
 
@@ -25,7 +25,7 @@ func (backward) execute(m *memory) {
 }
 
 /*
-	Increment memory's value pointed to ('+' operator).
+	increment defines an execute method that increments memory's value pointed to ('+' operator).
 */
 type increment struct{}
 
@@ -34,7 +34,7 @@ func (increment) execute(m *memory) {
 }
 
 /*
-	Decrement memory's value pointed to ('-' operator).
+	decrement defines an execute method that decrements memory's value pointed to ('-' operator).
 */
 type decrement struct{}
 
@@ -43,7 +43,7 @@ func (decrement) execute(m *memory) {
 }
 
 /*
-	Print memory's value pointed to as an ASCII char ('.' operator).
+	output defines an execute method that prints memory's value pointed to as an ASCII char ('.' operator).
 */
 type output struct{}
 

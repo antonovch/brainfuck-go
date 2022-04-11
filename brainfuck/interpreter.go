@@ -1,11 +1,13 @@
 package brainfuck
 
 /*
-	Interpret(code string) interprets brainfuck code string and prints
+	Interpret interprets brainfuck code string and prints
 	the output to the console through brainfuck's '.' directive.
 	The function does two things:
-		1/ transforms the code string into a slice of commands;
-		2/ runs the commands in order.
+
+		1. transforms the code string into a slice of commands;
+
+		2. runs the commands in order.
 */
 func Interpret(code string) {
 	commands := compile(code)
@@ -39,7 +41,6 @@ func (c *commandStorage) add(cmd command) {
 /*
 	compile transforms the code string into a slice of commands.
 */
-
 func compile(code string) []command {
 	var storage = &commandStorage{}
 	for _, char := range code {
@@ -51,7 +52,6 @@ func compile(code string) []command {
 /*
 	exec executes a given slice of commands in sequence.
 */
-
 func exec(cmds []command, m *memory) {
 	for _, cmd := range cmds {
 		cmd.execute(m)
@@ -62,7 +62,6 @@ func exec(cmds []command, m *memory) {
 	addCommand adds new commands to commandStorage with
 	the proper logic.
 */
-
 func addCommand(char rune, c *commandStorage) {
 	switch char {
 	case '>':
