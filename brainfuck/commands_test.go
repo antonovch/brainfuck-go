@@ -29,8 +29,8 @@ func TestLoop_execute(t *testing.T) {
 			fields{[]command{
 				forward{}, increment{}, increment{}, backward{}, decrement{},
 			}},
-			args{memory: &memory{[]byte{1}, 0}},
-			memory{[]byte{0, 2}, 0},
+			args{memory: &memory{cells: []byte{1}, ptr: 0}},
+			memory{cells: []byte{0, 2}, ptr: 0},
 		},
 	}
 	for _, tt := range tests {

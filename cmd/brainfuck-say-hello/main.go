@@ -1,8 +1,11 @@
 package main
 
-import "github.com/antonovch/brainfuck-go/brainfuck"
+import (
+	"fmt"
+	"github.com/antonovch/brainfuck-go/brainfuck"
+)
 
 func main() {
 	helloWorldCode := "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
-	brainfuck.Interpret(helloWorldCode)
+	fmt.Println(brainfuck.Interpret(helloWorldCode))
 }

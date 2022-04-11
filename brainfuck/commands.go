@@ -1,7 +1,5 @@
 package brainfuck
 
-import "fmt"
-
 /*
 	forward defines an execute method that moves memory's pointer one step forward ('>' operator).
 */
@@ -48,7 +46,7 @@ func (decrement) execute(m *memory) {
 type output struct{}
 
 func (output) execute(m *memory) {
-	fmt.Print(string(m.cells[m.ptr]))
+	m.output += string(m.cells[m.ptr])
 }
 
 /*

@@ -1,17 +1,18 @@
 package brainfuck
 
 /*
-	Interpret interprets brainfuck code string and prints
-	the output to the console through brainfuck's '.' directive.
-	The function does two things:
+	Interpret interprets brainfuck code string and returns
+	the output string. The function does two things:
 
 		1. transforms the code string into a slice of commands;
 
 		2. runs the commands in order.
 */
-func Interpret(code string) {
+func Interpret(code string) string {
 	commands := compile(code)
-	exec(commands, newMemory())
+	m := newMemory()
+	exec(commands, m)
+	return m.output
 }
 
 type command interface {

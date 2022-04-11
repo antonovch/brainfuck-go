@@ -39,13 +39,17 @@ ok      github.com/antonovch/brainfuck-go/brainfuck     0.729s
 
 ## Example usage
 See `cmd/brainfuck-say-hello/main.go` for a simple "Hello World" program:
+
 ```go
 package main
 
-import "github.com/antonovch/brainfuck-go/brainfuck"
+import (
+   "fmt"
+   "github.com/antonovch/brainfuck-go/brainfuck"
+)
 
 func main() {
-	helloWorldCode := "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
-	brainfuck.Interpret(helloWorldCode)
+   helloWorldCode := "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
+   fmt.Println(brainfuck.Interpret(helloWorldCode))
 }
 ```
