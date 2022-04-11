@@ -9,11 +9,11 @@ package brainfuck
 */
 func Interpret(code string) {
 	commands := compile(code)
-	exec(commands, newBuffer())
+	exec(commands, newMemory())
 }
 
 type command interface {
-	execute(memory *buffer)
+	execute(memory *memory)
 }
 
 type commandStorage struct {
@@ -52,9 +52,9 @@ func compile(code string) []command {
 	exec executes a given slice of commands in sequence.
 */
 
-func exec(cmds []command, b *buffer) {
+func exec(cmds []command, m *memory) {
 	for _, cmd := range cmds {
-		cmd.execute(b)
+		cmd.execute(m)
 	}
 }
 

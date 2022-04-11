@@ -3,52 +3,52 @@ package brainfuck
 import "fmt"
 
 /*
-	Move buffer's pointer one step forward ('>' operator).
+	Move memory's pointer one step forward ('>' operator).
 */
 type forward struct{}
 
-func (forward) execute(b *buffer) {
-	// when the end of the buffer is reached, it'll grow to twice its size
-	if len(b.cells)-1 == b.ptr {
-		b.cells = append(b.cells, make([]byte, len(b.cells))...)
+func (forward) execute(m *memory) {
+	// when the end of the memory is reached, it'll grow to twice its size
+	if len(m.cells)-1 == m.ptr {
+		m.cells = append(m.cells, make([]byte, len(m.cells))...)
 	}
-	b.ptr++
+	m.ptr++
 }
 
 /*
-	Move buffer's pointer one step backward ('<' operator).
+	Move memory's pointer one step backward ('<' operator).
 */
 type backward struct{}
 
-func (backward) execute(b *buffer) {
-	b.ptr--
+func (backward) execute(m *memory) {
+	m.ptr--
 }
 
 /*
-	Increment buffer's value pointed to ('+' operator).
+	Increment memory's value pointed to ('+' operator).
 */
 type increment struct{}
 
-func (increment) execute(b *buffer) {
-	b.cells[b.ptr]++
+func (increment) execute(m *memory) {
+	m.cells[m.ptr]++
 }
 
 /*
-	Decrement buffer's value pointed to ('-' operator).
+	Decrement memory's value pointed to ('-' operator).
 */
 type decrement struct{}
 
-func (decrement) execute(b *buffer) {
-	b.cells[b.ptr]--
+func (decrement) execute(m *memory) {
+	m.cells[m.ptr]--
 }
 
 /*
-	Print buffer's value pointed to as an ASCII char ('.' operator).
+	Print memory's value pointed to as an ASCII char ('.' operator).
 */
 type output struct{}
 
-func (output) execute(b *buffer) {
-	fmt.Print(string(b.cells[b.ptr]))
+func (output) execute(m *memory) {
+	fmt.Print(string(m.cells[m.ptr]))
 }
 
 /*
@@ -59,10 +59,10 @@ type loop struct {
 	cmds []command
 }
 
-func (l loop) execute(b *buffer) {
-	for b.cells[b.ptr] != 0 {
+func (l loop) execute(m *memory) {
+	for m.cells[m.ptr] != 0 {
 		for _, c := range l.cmds {
-			c.execute(b)
+			c.execute(m)
 		}
 	}
 }

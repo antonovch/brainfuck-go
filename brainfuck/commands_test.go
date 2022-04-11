@@ -10,27 +10,27 @@ func TestLoop_execute(t *testing.T) {
 		cmds []command
 	}
 	type args struct {
-		buffer *buffer
+		memory *memory
 	}
 	tests := []struct {
 		name     string
 		fields   fields
 		args     args
-		expected buffer
+		expected memory
 	}{
 		{
-			"skips executing commands if buffer current cell value is zero",
+			"skips executing commands if memory current cell value is zero",
 			fields{[]command{forward{}, increment{}}},
-			args{buffer: newBuffer()},
-			*newBuffer(),
+			args{memory: newMemory()},
+			*newMemory(),
 		},
 		{
-			"executes all commands if buffer current cell value is non-zero",
+			"executes all commands if memory current cell value is non-zero",
 			fields{[]command{
 				forward{}, increment{}, increment{}, backward{}, decrement{},
 			}},
-			args{buffer: &buffer{[]byte{1}, 0}},
-			buffer{[]byte{0, 2}, 0},
+			args{memory: &memory{[]byte{1}, 0}},
+			memory{[]byte{0, 2}, 0},
 		},
 	}
 	for _, tt := range tests {
@@ -38,9 +38,9 @@ func TestLoop_execute(t *testing.T) {
 			l := loop{
 				cmds: tt.fields.cmds,
 			}
-			l.execute(tt.args.buffer)
-			if !reflect.DeepEqual(*tt.args.buffer, tt.expected) {
-				t.Errorf("Expected %v \n but have %v", tt.expected, *tt.args.buffer)
+			l.execute(tt.args.memory)
+			if !reflect.DeepEqual(*tt.args.memory, tt.expected) {
+				t.Errorf("Expected %v \n but have %v", tt.expected, *tt.args.memory)
 			}
 		})
 	}
