@@ -81,5 +81,7 @@ func addCommand(char rune, c *commandStorage) {
 		cmd := loop{c.loop[len(c.loop)-1]}
 		c.loop = c.loop[:len(c.loop)-1]
 		c.add(cmd)
+	case ' ', '\u000a':
+		// ignore space and new line
 	}
 }
