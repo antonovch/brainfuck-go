@@ -38,18 +38,16 @@ ok      github.com/antonovch/brainfuck-go/brainfuck     0.729s
 ```
 
 ## Example usage
-See `cmd/brainfuck-say-hello/main.go` for a simple "Hello World" program:
-
-```go
-package main
-
-import (
-   "fmt"
-   "github.com/antonovch/brainfuck-go/brainfuck"
-)
-
-func main() {
-   helloWorldCode := "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
-   fmt.Println(brainfuck.Interpret(helloWorldCode))
-}
+The file `cmd/brainfuck-say-hello/main.go` provides a program code that can be installed using
+```bash
+go install ./cmd/brainfuck-say-hello 
+```
+and invoked from the command line either with a filename and a `-f` flag:
+```bash
+brainfuck-say-hello -f "/path/to/file.b"
+```
+or a string and a `-i` flag:
+```bash
+brainfuck-say-hello -i "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.-
+-------.>>+.>++."
 ```
