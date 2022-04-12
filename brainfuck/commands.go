@@ -68,7 +68,7 @@ func (l loop) execute(b *buffer) {
 }
 
 /*
-	Left shift current buffer value's bits for one step ('{' operator).
+	leftshift defines an execute method that left shifts current buffer value's bits for one step ('{' operator).
 */
 type leftshift struct{}
 
@@ -77,7 +77,7 @@ func (leftshift) execute(b *buffer) {
 }
 
 /*
-	Right shift current buffer value's bits for one step ('}' operator).
+	rightshift defines an execute method that right shift current buffer value's bits for one step ('}' operator).
 */
 type rightshift struct{}
 
